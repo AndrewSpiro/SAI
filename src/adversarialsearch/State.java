@@ -6,26 +6,29 @@ import java.io.IOException;
 
 public class State {
 
-	char [][] board; // the board as a 2D character array
-    int [] agentX; // the x−coordinates o f the agents [agentA_x_coordinate, agentB_x_coordinate]
-    int [] agentY; // the y−coordinates o f the agents
-    int [] score; // the amount o f food eaten by each agent
+    char[][] board; // the board as a 2D character array
+    int[] agentX; // the x−coordinates o f the agents [agentA_x_coordinate, agentB_x_coordinate]
+    int[] agentY; // the y−coordinates o f the agents
+    int[] score; // the amount o f food eaten by each agent
     int turn; // who’s turn it is , agent 0 or agent 1
     int food; // the total amount of food still available
 
+    Vector<String> moves = new Vector<String>(); // moves performed to get to the current state
+
     public State() {
-        this.score = new int[]{0, 0};
+        this.score = new int[] { 0, 0 };
         this.turn = 0;
         this.food = 0;
     }
-    
-    public State(char[][] board, int[] agentX, int[] agentY, int[] score, int turn, int food) {
+
+    public State(char[][] board, int[] agentX, int[] agentY, int[] score, int turn, int food, Vector<String> moves) {
         this.board = board;
         this.agentX = agentX;
         this.agentY = agentY;
         this.score = score;
         this.turn = turn;
         this.food = food;
+        this.moves = moves;
     }
 
 
