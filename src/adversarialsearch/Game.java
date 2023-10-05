@@ -14,11 +14,10 @@ public class Game {
     public void test() {
 
         System.out.println(b);
-        State nextState = alfabeta(b, b.turn, 20, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
-        // TODO: change this back to the earlier version of this test:
-        // System.out.println(minimax(b, b.turn, 11, 0);
-        System.out.println("Moves: " + nextState.moves);
-        System.out.println(nextState);
+        State resultState = alfabeta(b, b.turn, 20, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        // State resultState = minimax(b, b.turn, 11, 0);
+        System.out.println("Moves: " + resultState.moves);
+        System.out.println(resultState);
 
         // while (!b.isLeaf()){
         // System.out.println(b.toString());
@@ -26,41 +25,6 @@ public class Game {
         // b.execute(b.legalMoves().get((int)(Math.random()*b.legalMoves().size())));
         // }
     }
-
-    // public State minimax(State s, int forAgent, int maxDepth, int depth) {
-    // EXPLANATION: this is the previous minimax where both agents go for their max score instead of the opponent aiming for the minimal score
-    //  we reasoned that this would have the same effects as the minimax below here, but it performs a bit differently
-    //     // System.out.println("Current State:");
-    //     // System.out.println(s);
-    //     // System.out.println("Is leaf?: " + s.isLeaf());
-    //     // System.out.println("Is max depth?: " + (depth == maxDepth));
-
-    //     // TODO: explain this method in the report
-    //     if (depth == maxDepth || s.isLeaf()) {
-    //         // System.out.println("Returning State");
-    //         return s;
-    //         // return some state
-    //     }
-
-    //     Vector<String> actions = s.legalMoves();
-
-    //     State currentHighestState = null;
-    //     for (String action : actions) {
-    //         // copying the parent leaf and executing the action
-    //         State copied = s.copy();
-    //         copied.execute(action);
-
-    //         // the state of the board after executing the action
-    //         State leafState = minimax(copied, copied.turn, maxDepth, depth + 1);
-    //         // TODO: maybe we want to compare moves.size() here as well to see if we can get
-    //         // in a desired state with less moves
-    //         if (currentHighestState == null || leafState.value(forAgent) > currentHighestState.value(forAgent)) {
-    //             currentHighestState = leafState;
-    //         }
-    //     }
-
-    //     return currentHighestState;
-    // }
 
    public State minimax(State s, int forAgent, int maxDepth, int depth) {
        if (depth == maxDepth || s.isLeaf()) {
@@ -96,8 +60,6 @@ public class Game {
        return returnState;
    }
     
-
-   // alfabeta(...... alfa = Integer.MAX_VALUE, )
    public State alfabeta(State s, int forAgent, int maxDepth, int depth, double alfa, double beta) {
        if (depth == maxDepth || s.isLeaf()) {
            return s;
@@ -105,8 +67,6 @@ public class Game {
 
        Vector<String> actions = s.legalMoves();
        State returnState = null;
-    //    alfa = Integer.MAX_VALUE;
-    //    beta = Integer.MIN_VALUE;
        if (s.turn == forAgent) {
            // we will look for the max value of any potential leaves
            for (String action : actions) {

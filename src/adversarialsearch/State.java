@@ -221,6 +221,7 @@ public class State {
             opponentScore = this.score[0];
         }
 
+        // if we want to use the amount of food eaten as a heuristic:
         // return currentAgentScore - opponentScore;
 
         if (currentAgentScore > opponentScore) {
