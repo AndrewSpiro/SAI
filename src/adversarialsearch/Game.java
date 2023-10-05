@@ -7,17 +7,18 @@ public class Game {
 
     public Game() {
         b = new State();
-        b.read("data/board.txt");
+        // b.read("data/board.txt");
+        b.read("data/test-board.txt");
     }
 
     public void test() {
 
-    	System.out.println(b);
-		State nextState = minimax(b, b.turn, 11, 0);
-    	for (int i = 0; i < 9; i++) {
-			System.out.println(nextState);
-			nextState = minimax(nextState, nextState.turn, 11, 0);
-    	}
+        System.out.println(b);
+        State nextState = minimax(b, b.turn, 11, 0);
+        // TODO: change this back to the earlier version of this test:
+        // System.out.println(minimax(b, b.turn, 11, 0);
+        System.out.println("Moves: " + nextState.moves);
+        System.out.println(nextState);
 
         // while (!b.isLeaf()){
         // System.out.println(b.toString());
@@ -27,13 +28,19 @@ public class Game {
     }
 
     public State minimax(State s, int forAgent, int maxDepth, int depth) {
+        // System.out.println("Current State:");
+        // System.out.println(s);
+        // System.out.println("Is leaf?: " + s.isLeaf());
+        // System.out.println("Is max depth?: " + (depth == maxDepth));
+
         // TODO: explain this method in the report
         if (depth == maxDepth || s.isLeaf()) {
+            // System.out.println("Returning State");
             return s;
             // return some state
         }
 
-        Vector<String> actions = s.legalMoves(forAgent);
+        Vector<String> actions = s.legalMoves();
 
         State currentHighestState = null;
         for (String action : actions) {
