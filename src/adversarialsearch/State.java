@@ -13,12 +13,13 @@ public class State {
     int turn; // who’s turn it is , agent 0 or agent 1
     int food; // the total amount of food still available
 
-    Vector<String> moves = new Vector<String>(); // moves performed to get to the current state
+    Vector<String> moves;; // moves performed to get to the current state
 
     public State() {
         this.score = new int[] { 0, 0 };
         this.turn = 0;
         this.food = 0;
+        this.moves = new Vector<String>();
     }
 
     public State(char[][] board, int[] agentX, int[] agentY, int[] score, int turn, int food, Vector<String> moves) {
@@ -42,8 +43,9 @@ public class State {
 
             // parse dimensions on the first line
             String firstLine = board.readLine();
-            width = Integer.parseInt(String.valueOf(firstLine.charAt(0)));
-            height = Integer.parseInt(String.valueOf(firstLine.charAt(2)));
+            String[] dimensions = firstLine.split(" ");
+            width = Integer.parseInt(dimensions[0]);
+            height = Integer.parseInt(dimensions[1]);
 
             // parse the board
             this.board = new char[height][width];
@@ -126,8 +128,7 @@ public class State {
                 this.score.clone(),
                 this.turn,
                 this.food,
-                this.moves
-        	);
+                new Vector<String>(this.moves));
     }
 
     public Vector<String> legalMoves(int agent) {
@@ -168,7 +169,6 @@ public class State {
         return this.legalMoves(this.turn);
     }
 
-
     public void execute(String action) {
         // TODO: add an explanation of this function to the report
         int x = this.agentX[this.turn];
@@ -199,7 +199,8 @@ public class State {
                 break;
 
         }
-        this.moves.add(action);
+        String player = this.turn == 0 ? "A" : "B";
+        this.moves.add(player + " performs " + action);
         this.turn = this.turn == 0 ? 1 : 0;
     }
 
@@ -213,13 +214,14 @@ public class State {
         int currentAgentScore;
         int opponentScore;
 
+        currentAgentScore = this.score[agent];
         if (agent == 0) {
-            currentAgentScore = this.score[agent];
             opponentScore = this.score[1];
         } else {
-            currentAgentScore = this.score[agent];
-            opponentScore = this.score[1];
+            opponentScore = this.score[0];
         }
+
+        // return currentAgentScore - opponentScore;
 
         if (currentAgentScore > opponentScore) {
             return 1;
