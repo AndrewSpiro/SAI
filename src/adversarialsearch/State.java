@@ -221,6 +221,8 @@ public class State {
             opponentScore = this.score[0];
         }
 
+        // return currentAgentScore - opponentScore;
+
         if (currentAgentScore > opponentScore) {
             return 1;
         } else if (currentAgentScore == opponentScore) {
