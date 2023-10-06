@@ -8,7 +8,7 @@ public class Game {
     public Game() {
         b = new State();
         b.read("data/board.txt");
-//         b.read("data/test-board.txt");
+        // b.read("data/test-board.txt");
     }
 
     public void test() {
@@ -26,79 +26,80 @@ public class Game {
         // }
     }
 
-   public State minimax(State s, int forAgent, int maxDepth, int depth) {
-       if (depth == maxDepth || s.isLeaf()) {
-           return s;
-       }
+    public State minimax(State s, int forAgent, int maxDepth, int depth) {
+        if (depth == maxDepth || s.isLeaf()) {
+            return s;
+        }
 
-       Vector<String> actions = s.legalMoves();
-       State returnState = null;
-       if (s.turn == forAgent) {
-           // we will look for the max value of any potential leaves
-           for (String action : actions) {
-               State copy = s.copy();
-               copy.execute(action);
+        Vector<String> actions = s.legalMoves();
+        State returnState = null;
+        if (s.turn == forAgent) {
+            // we will look for the max value of any potential leaves
+            for (String action : actions) {
+                State copy = s.copy();
+                copy.execute(action);
 
-               State leafState = minimax(copy, forAgent, maxDepth, depth + 1);
-               if (returnState == null || leafState.value(forAgent) > returnState.value(forAgent)) {
-                   returnState = leafState;
-               }
-           }
-       } else {
-           // we will look for the minimum value of any potential leaves
-           for (String action : actions) {
-               State copy = s.copy();
-               copy.execute(action);
-
-               State leafState = minimax(copy, forAgent, maxDepth, depth + 1);
-               if (returnState == null || leafState.value(s.turn) < returnState.value(s.turn)) {
-                   returnState = leafState;
-               }
-           }
-       }
-
-       return returnState;
-   }
-    
-   public State alfabeta(State s, int forAgent, int maxDepth, int depth, double alfa, double beta) {
-       if (depth == maxDepth || s.isLeaf()) {
-           return s;
-       }
-
-       Vector<String> actions = s.legalMoves();
-       State returnState = null;
-       if (s.turn == forAgent) {
-           // we will look for the max value of any potential leaves
-           for (String action : actions) {
-               State copy = s.copy();
-               copy.execute(action);
-
-               State leafState = alfabeta(copy, forAgent, maxDepth, depth + 1, alfa, beta);
-               double leafValue = leafState.value(forAgent);
-               if (returnState == null || leafValue > returnState.value(forAgent)) {
-                   returnState = leafState;
-               }
-               alfa = leafValue < alfa ? alfa : leafValue;
-               if (beta <= alfa) break;
-           }
-       } else {
-           // we will look for the minimum value of any potential leaves
-           for (String action : actions) {
-               State copy = s.copy();
-               copy.execute(action);
-
-               State leafState = alfabeta(copy, forAgent, maxDepth, depth + 1, alfa, beta);
-               double leafValue = leafState.value(forAgent);
-               if (returnState == null || leafValue < returnState.value(s.turn)) {
-                   returnState = leafState;
-               }
-               beta = leafValue > beta ? beta : leafValue;
-               if (beta <= alfa) break; 
+                State leafState = minimax(copy, forAgent, maxDepth, depth + 1);
+                if (returnState == null || leafState.value(forAgent) > returnState.value(forAgent)) {
+                    returnState = leafState;
+                }
             }
-       }
+        } else {
+            // we will look for the minimum value of any potential leaves
+            for (String action : actions) {
+                State copy = s.copy();
+                copy.execute(action);
 
-       return returnState;
-   }
-    
+                State leafState = minimax(copy, forAgent, maxDepth, depth + 1);
+                if (returnState == null || leafState.value(s.turn) < returnState.value(s.turn)) {
+                    returnState = leafState;
+                }
+            }
+        }
+
+        return returnState;
+    }
+
+    public State alfabeta(State s, int forAgent, int maxDepth, int depth, double alfa, double beta) {
+        if (depth == maxDepth || s.isLeaf()) {
+            return s;
+        }
+
+        Vector<String> actions = s.legalMoves();
+        State returnState = null;
+        if (s.turn == forAgent) {
+            // we will look for the max value of any potential leaves
+            for (String action : actions) {
+                State copy = s.copy();
+                copy.execute(action);
+
+                State leafState = alfabeta(copy, forAgent, maxDepth, depth + 1, alfa, beta);
+                double leafValue = leafState.value(forAgent);
+                if (returnState == null || leafValue > returnState.value(forAgent)) {
+                    returnState = leafState;
+                }
+                alfa = leafValue < alfa ? alfa : leafValue;
+                if (beta <= alfa)
+                    break;
+            }
+        } else {
+            // we will look for the minimum value of any potential leaves
+            for (String action : actions) {
+                State copy = s.copy();
+                copy.execute(action);
+
+                State leafState = alfabeta(copy, forAgent, maxDepth, depth + 1, alfa, beta);
+                double leafValue = leafState.value(forAgent);
+                if (returnState == null || leafValue < returnState.value(s.turn)) {
+                    returnState = leafState;
+                }
+                beta = leafValue > beta ? beta : leafValue;
+                if (beta <= alfa)
+                    break;
+            }
+        }
+
+        return returnState;
+    }
 
 }
