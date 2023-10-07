@@ -210,6 +210,9 @@ public class State {
     }
 
     public double value(int agent) {
+        if (!this.isLeaf()) {
+            return 0;
+        }
         // TODO: mention this method in the report
         int currentAgentScore;
         int opponentScore;
@@ -221,6 +224,9 @@ public class State {
             opponentScore = this.score[0];
         }
 
+        // if we want to use the amount of food eaten as a heuristic (note that you'd
+        // also have to delete the if statement at the beginning of this function to
+        // support this functionality):
         // return currentAgentScore - opponentScore;
 
         if (currentAgentScore > opponentScore) {
