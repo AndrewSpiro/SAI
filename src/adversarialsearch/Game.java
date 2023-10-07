@@ -14,8 +14,8 @@ public class Game {
     public void test() {
 
         System.out.println(b);
-        State resultState = alfabeta(b, b.turn, 20, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
-        // State resultState = minimax(b, b.turn, 11, 0);
+//        State resultState = alfabeta(b, b.turn, 11, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
+         State resultState = minimax(b, b.turn, 13, 0);
         System.out.println("Moves: " + resultState.moves);
         System.out.println(resultState);
 
@@ -51,7 +51,7 @@ public class Game {
                 copy.execute(action);
 
                 State leafState = minimax(copy, forAgent, maxDepth, depth + 1);
-                if (returnState == null || leafState.value(s.turn) < returnState.value(s.turn)) {
+                if (returnState == null || leafState.value(forAgent) < returnState.value(forAgent)) {
                     returnState = leafState;
                 }
             }
@@ -90,7 +90,7 @@ public class Game {
 
                 State leafState = alfabeta(copy, forAgent, maxDepth, depth + 1, alfa, beta);
                 double leafValue = leafState.value(forAgent);
-                if (returnState == null || leafValue < returnState.value(s.turn)) {
+                if (returnState == null || leafValue < returnState.value(forAgent)) { // Changed from returnState.value(s.turn) to returnState.value(forAgent)
                     returnState = leafState;
                 }
                 beta = leafValue > beta ? beta : leafValue;
