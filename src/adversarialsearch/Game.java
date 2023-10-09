@@ -14,8 +14,8 @@ public class Game {
     public void test() {
 
         System.out.println(b);
-//        State resultState = alfabeta(b, b.turn, 11, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
-         State resultState = minimax(b, b.turn, 13, 0);
+        State resultState = alfabeta(b, b.turn, 11, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        // State resultState = minimax(b, b.turn, 13, 0);
         System.out.println("Moves: " + resultState.moves);
         System.out.println(resultState);
 
@@ -25,40 +25,6 @@ public class Game {
         // b.execute(b.legalMoves().get((int)(Math.random()*b.legalMoves().size())));
         // }
     }
-
-    // public State minimax(State s, int forAgent, int maxDepth, int depth) {
-    //     if (depth == maxDepth || s.isLeaf()) {
-    //         return s;
-    //     }
-
-    //     Vector<String> actions = s.legalMoves();
-    //     State returnState = null;
-    //     if (s.turn == forAgent) {
-    //         // we will look for the max value of any potential leaves
-    //         for (String action : actions) {
-    //             State copy = s.copy();
-    //             copy.execute(action);
-
-    //             State leafState = minimax(copy, forAgent, maxDepth, depth + 1);
-    //             if (returnState == null || leafState.value(forAgent) > returnState.value(forAgent)) {
-    //                 returnState = leafState;
-    //             }
-    //         }
-    //     } else {
-    //         // we will look for the minimum value of any potential leaves
-    //         for (String action : actions) {
-    //             State copy = s.copy();
-    //             copy.execute(action);
-
-    //             State leafState = minimax(copy, forAgent, maxDepth, depth + 1);
-    //             if (returnState == null || leafState.value(forAgent) < returnState.value(forAgent)) {
-    //                 returnState = leafState;
-    //             }
-    //         }
-    //     }
-
-    //     return returnState;
-    // }
 
         public State minimax(State s, int forAgent, int maxDepth, int depth) {
         if (depth == maxDepth || s.isLeaf()) {
@@ -92,38 +58,29 @@ public class Game {
 
         Vector<String> actions = s.legalMoves();
         State returnState = null;
-        if (s.turn == forAgent) {
-            // we will look for the max value of any potential leaves
-            for (String action : actions) {
-                State copy = s.copy();
-                copy.execute(action);
-
-                State leafState = alfabeta(copy, forAgent, maxDepth, depth + 1, alfa, beta);
-                double leafValue = leafState.value(forAgent);
+        for (String action : actions) {
+            State copy = s.copy();
+            copy.execute(action);
+            
+            State leafState = alfabeta(copy, forAgent, maxDepth, depth + 1, alfa, beta);
+            double leafValue = leafState.value(forAgent);
+            if (s.turn == forAgent){
                 if (returnState == null || leafValue > returnState.value(forAgent)) {
                     returnState = leafState;
                 }
                 alfa = leafValue < alfa ? alfa : leafValue;
                 if (beta <= alfa)
                     break;
-            }
-        } else {
-            // we will look for the minimum value of any potential leaves
-            for (String action : actions) {
-                State copy = s.copy();
-                copy.execute(action);
 
-                State leafState = alfabeta(copy, forAgent, maxDepth, depth + 1, alfa, beta);
-                double leafValue = leafState.value(forAgent);
-                if (returnState == null || leafValue < returnState.value(forAgent)) { // Changed from returnState.value(s.turn) to returnState.value(forAgent)
+            } else {
+                if (returnState == null || leafValue < returnState.value(forAgent)) {
                     returnState = leafState;
                 }
                 beta = leafValue > beta ? beta : leafValue;
                 if (beta <= alfa)
-                    break;
+                break;
             }
         }
-
         return returnState;
     }
 
