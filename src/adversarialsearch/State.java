@@ -107,6 +107,7 @@ public class State {
         result += "\n" + "food: " + this.food;
         result += "\n" + "score: " + Arrays.toString(this.score);
         result += "\n" + "turn: " + this.turn;
+        result += "\n" + "moves: " + this.moves;
 
         return result;
     }
