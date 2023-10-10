@@ -144,16 +144,16 @@ public class State {
 
         // check if the coordinates next to, above, below are accessible by the agent
         // (not walls)
-        if (this.board[y][x - 1] == ' ' || this.board[y][x - 1] == '*') {
+        if (this.board[y][x - 1] != '#') {
             validMoves.add("left");
         }
-        if (this.board[y][x + 1] == ' ' || this.board[y][x + 1] == '*') {
+        if (this.board[y][x + 1] != '#') {
             validMoves.add("right");
         }
-        if (this.board[y - 1][x] == ' ' || this.board[y - 1][x] == '*') {
+        if (this.board[y - 1][x] != '#') {
             validMoves.add("up");
         }
-        if (this.board[y + 1][x] == ' ' || this.board[y + 1][x] == '*') {
+        if (this.board[y + 1][x] != '#') {
             validMoves.add("down");
         }
         if (this.board[y][x] == ' ') {
