@@ -68,17 +68,14 @@ public class Game {
                     returnState = leafState;
                 }
                 alfa = leafValue < alfa ? alfa : leafValue;
-                if (beta <= alfa)
-                    break;
-
             } else {
                 if (returnState == null || leafValue < returnState.value(forAgent)) {
                     returnState = leafState;
                 }
                 beta = leafValue > beta ? beta : leafValue;
-                if (beta <= alfa)
-                break;
             }
+            if (beta <= alfa)
+                break;
         }
         return returnState;
     }
