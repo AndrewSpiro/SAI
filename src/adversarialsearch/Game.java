@@ -12,11 +12,33 @@ public class Game {
 
     public void test() {
 
-        System.out.println(b);
-        State resultState = alfabeta(b, b.turn, 11, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
-        // State resultState = minimax(b, b.turn, 13, 0);
-        System.out.println("Moves: " + resultState.moves);
+        System.out.println(b + "\n\n");
+		State resultState = alfabeta(b, b.turn, 9, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
+		// State resultState = minimax(b, b.turn, 14, 0);
         System.out.println(resultState);
+
+        // testing loop for 100 different runs
+
+        //  System.out.println("Initial state: \n" + b + "\n");
+        //  for (int i = 0; i < 100; i++) {
+        //    // creates a random depth between 0 and 15 (15 excluded)
+        //    int randomDepth = (int) (Math.random() * 100) % 15;
+        //    int randomForAgent = (int) (Math.round(Math.random()));
+        //    boolean runMinimax = Math.random() < 0.5;
+        //    State result;
+        //    if (runMinimax) {
+        //      System.out.println("Running minimax algorithm with parameters: ");
+        //      System.out.println("forAgent: " + randomForAgent + "\nmaxDepth: " + randomDepth);
+        //      result = minimax(b, randomForAgent, randomDepth, 0);
+        //      System.out.println("Succesfully completed minimax algorithm!\n\n");
+        //    } else {
+        //      System.out.println("Running alfabeta algorithm with parameters: ");
+        //      System.out.println("forAgent: " + randomForAgent + "\nmaxDepth: " + randomDepth);
+        //      result = alfabeta(b, randomForAgent, randomDepth, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        //      System.out.println("Succesfully completed alfabeta algorithm!\n\n");
+        //    }
+        //    System.out.println(result + "\n\n");
+        //  }
 
         // while (!b.isLeaf()){
         // System.out.println(b.toString());
