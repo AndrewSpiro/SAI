@@ -210,6 +210,13 @@ public class State {
         if (!this.isLeaf()) {
             return 0;
         }
+
+        // if there are no valid moves for the given agent then that agent has
+        // automatically lost.
+        if (this.legalMoves(agent).isEmpty()) {
+            return -1;
+        }
+
         int currentAgentScore;
         int opponentScore;
 
