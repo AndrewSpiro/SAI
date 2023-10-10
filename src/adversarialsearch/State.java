@@ -107,6 +107,7 @@ public class State {
         result += "\n" + "food: " + this.food;
         result += "\n" + "score: " + Arrays.toString(this.score);
         result += "\n" + "turn: " + this.turn;
+        result += "\n" + "moves: " + this.moves;
 
         return result;
     }
@@ -132,7 +133,6 @@ public class State {
     }
 
     public Vector<String> legalMoves(int agent) {
-        // TODO: explain this method in report
         int x = this.agentX[agent];
         int y = this.agentY[agent];
 
@@ -170,7 +170,6 @@ public class State {
     }
 
     public void execute(String action) {
-        // TODO: add an explanation of this function to the report
         int x = this.agentX[this.turn];
         int y = this.agentY[this.turn];
         switch (action) {
@@ -205,7 +204,6 @@ public class State {
     }
 
     public boolean isLeaf() {
-        // TODO: mention this method in the report
         return this.food == 0 || this.legalMoves().isEmpty();
     }
 
@@ -213,7 +211,13 @@ public class State {
         if (!this.isLeaf()) {
             return 0;
         }
-        // TODO: mention this method in the report
+
+        // if there are no valid moves for the given agent then that agent has
+        // automatically lost.
+        if (this.legalMoves(agent).isEmpty()) {
+            return -1;
+        }
+
         int currentAgentScore;
         int opponentScore;
 
