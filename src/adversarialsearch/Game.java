@@ -25,7 +25,7 @@ public class Game {
         // }
     }
 
-        public State minimax(State s, int forAgent, int maxDepth, int depth) {
+    public State minimax(State s, int forAgent, int maxDepth, int depth) {
         if (depth == maxDepth || s.isLeaf()) {
             return s;
         }
@@ -37,7 +37,7 @@ public class Game {
             copy.execute(action);
             State leafState = minimax(copy, forAgent, maxDepth, depth + 1);
 
-            if (s.turn == forAgent){
+            if (s.turn == forAgent) {
                 if (returnState == null || leafState.value(forAgent) > returnState.value(forAgent)) {
                     returnState = leafState;
                 }
@@ -48,7 +48,7 @@ public class Game {
             }
         }
         return returnState;
-        }
+    }
 
     public State alfabeta(State s, int forAgent, int maxDepth, int depth, double alfa, double beta) {
         if (depth == maxDepth || s.isLeaf()) {
@@ -60,10 +60,10 @@ public class Game {
         for (String action : actions) {
             State copy = s.copy();
             copy.execute(action);
-            
+
             State leafState = alfabeta(copy, forAgent, maxDepth, depth + 1, alfa, beta);
             double leafValue = leafState.value(forAgent);
-            if (s.turn == forAgent){
+            if (s.turn == forAgent) {
                 if (returnState == null || leafValue > returnState.value(forAgent)) {
                     returnState = leafState;
                 }
