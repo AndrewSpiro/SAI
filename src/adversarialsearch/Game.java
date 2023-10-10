@@ -13,7 +13,7 @@ public class Game {
     public void test() {
 
         System.out.println(b + "\n\n");
-		State resultState = alfabeta(b, b.turn, 9, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
+		State resultState = alfabeta(b, b.turn, 11, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
 		// State resultState = minimax(b, b.turn, 14, 0);
         System.out.println(resultState);
 
