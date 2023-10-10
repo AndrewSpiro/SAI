@@ -8,7 +8,6 @@ public class Game {
     public Game() {
         b = new State();
         b.read("data/board.txt");
-        // b.read("data/test-board.txt");
     }
 
     public void test() {
