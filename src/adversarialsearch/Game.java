@@ -4,6 +4,7 @@ import java.util.Vector;
 
 public class Game {
     State b;
+    int nodes_visited = 0;
 
     public Game() {
         b = new State();
@@ -13,9 +14,10 @@ public class Game {
     public void test() {
 
         System.out.println(b + "\n\n");
-		State resultState = alfabeta(b, b.turn, 9, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
-		// State resultState = minimax(b, b.turn, 14, 0);
+		State resultState = alfabeta(b, b.turn, 13, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
+//		 State resultState = minimax(b, b.turn, 13, 0);
         System.out.println(resultState);
+        System.out.println(nodes_visited);
 
         // testing loop for 100 different runs
 
@@ -57,6 +59,7 @@ public class Game {
         for (String action : actions) {
             State copy = s.copy();
             copy.execute(action);
+            nodes_visited++;
             State leafState = minimax(copy, forAgent, maxDepth, depth + 1);
 
             if (s.turn == forAgent) {
@@ -82,6 +85,7 @@ public class Game {
         for (String action : actions) {
             State copy = s.copy();
             copy.execute(action);
+            nodes_visited++;
 
             State leafState = alfabeta(copy, forAgent, maxDepth, depth + 1, alfa, beta);
             double leafValue = leafState.value(forAgent);
